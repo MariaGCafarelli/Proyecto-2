@@ -24,6 +24,7 @@ public class Solucion {
         //arbol.buscar(arbol.getRoot(),"gato");
         //System.out.println(arbol.getBuscado().getId() + " BUSCADO");
         arbol.cargarArbol("ejemplo.txt");
-        arbol.preOrder(arbol.getRoot());
+        arbol.guardarArbol();
+        //arbol.preOrder(arbol.getRoot());
     }
 }

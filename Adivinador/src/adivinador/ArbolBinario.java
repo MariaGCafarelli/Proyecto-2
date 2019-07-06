@@ -6,7 +6,9 @@ import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.util.ArrayList;
 import javax.swing.JOptionPane;
+
 /**
  *
  * @author María Cabriela Cafarelli
@@ -21,6 +23,10 @@ public class ArbolBinario {
     //Objeto de tipo Nodo que guarda un elemento buscado en el arbol
     
     private Nodo buscado;
+    
+    //ArryList de tipo String que guarda el recorrido preOrder del arbol
+    
+    private ArrayList <String> preOrder = new ArrayList<String>();
     
     //Constructor del arbol
     
@@ -123,43 +129,20 @@ public class ArbolBinario {
         try{
             String archivo = "Conocimientos.txt";
             PrintWriter out = new PrintWriter(archivo);
-            out.print(this.buscado.getId());
-            out.println();
-            
+            out.print(this.root.getId());
+            preOrder(this.root);
+            for(String i: this.preOrder){
+                out.println();
+                out.print(i);
+            }
+            out.close();  
         }catch(Exception e){
             System.out.println("No se pudo cargar el adivinador en un .txt con exito.");
             e.printStackTrace();
             
         }
     }
-    
-    /*public boolean retornarGrafo(String Archivo)throws IOException{
-        
-        try{
-            String fileName = Archivo + ".txt";
-            PrintWriter out = new PrintWriter(fileName);
-            out.print(Integer.toString(this.numeroVertice));
-            out.println();
-            out.print(Integer.toString(this.numeroLado));
-            for(Vertice v: this.listaVertices){
-                out.println();
-                out.print(v.getId());    
-            }           
-            for(Arista a: this.listaArista){
-                out.println();
-                out.print( a.getId() + " " + a.getExtremo1() + " " + a.getExtremo2() + " " + a.getPeso() + " " + a.getFeromonas());    
-            }
-            
-            out.close();
-            return true;       
-        }
-        catch (Exception e){
-            System.out.println("No se pudo cargar el grafo en un .txt con exito.");
-            e.printStackTrace();
-            return false;
-        } 
-    }*/
-    
+
     public Boolean cargarArbol(String Archivo)throws IOException{
         try{
             BufferedReader in = new BufferedReader(new FileReader(Archivo));
@@ -197,51 +180,6 @@ public class ArbolBinario {
     }    
     
     
-    
-    //Funcion que determina si un nodo se encuentra en el arbol y retorna un auxiliar 
-    //booleano segun el caso.
-    
-    /*public boolean esta(Nodo nodo){
-        Nodo aux = this.root;
-        Boolean encontrado = false;
-        if(this.root == null){
-            encontrado = true;
-        }else{
-            while(aux != null && !(encontrado)){
-                if(aux.getId() == nodo.getId()){
-                    encontrado = true;
-                }else if(aux.getId()<nodo.getId()){
-                    aux = aux.getRight();
-                }else{
-                    aux = aux.getLeft();
-                }
-            }           
-        }
-        return encontrado;
-    }
-    
-    //Funcion que retorna un objeto de tipo nodo correspondiente al elemento
-    //que se desea buscar y esta en el arbol
-    
-    public Nodo buscar(int nodo){
-        Nodo aux = this.root;
-        Boolean encontrado = false;
-        if (this.root == null) {
-            return null;
-        }else{
-            while(!encontrado && aux != null){
-                if(aux.getId()== nodo){
-                    encontrado = true;
-                }else if(aux.getId()<nodo){
-                    aux = aux.getRight();
-                }else{
-                    aux = aux.getLeft();
-                }
-            }
-            return aux;
-        }
-    }*/
-    
     //Funcion que imprime en consola los elementos del arbol inOrder
     
     public void inOrder(Nodo raiz){
@@ -266,107 +204,14 @@ public class ArbolBinario {
     
     public void preOrder(Nodo raiz){
         if(raiz != null){
-            System.out.println(raiz.getId());
+            if(!raiz.hoja()){
+                String agregar = raiz.getId() + ", " + raiz.getLeft().getId() + ", " + raiz.getRight().getId();
+                this.preOrder.add(agregar);
+                System.out.println(agregar);
+            }
             preOrder(raiz.getLeft());
             preOrder(raiz.getRight());
         }
     }
     
-    //Funcion que retorna un objeto de tipo nodo correspondiente al minimo elemento 
-    //en comparacion al nodo raiz del que se parte.
-    
-    /*public Nodo minimo(Nodo raiz){
-        while(raiz.getLeft()!= null && raiz != null){
-            raiz = raiz.getLeft();
-        }
-        return raiz;
-    }
-    
-    //Funcion que reorganiza el arbol para mantener la condicion del Arbol Binario de Busqueda
-    //cuando se elimina un elemento que tiene tanto hijo derecho como hijo izquierdo. Toma como
-    //parametro el nodo a transplantar y su hijo derecho mas pequeño.
-    
-    public void transplantar(Nodo nodo, Nodo hijo){
-        if(nodo.getFather() == null){
-            this.root = hijo;
-        }else if(nodo == nodo.getFather().getLeft()){
-            nodo.getFather().setLeft(hijo);
-        }else{
-            nodo.getFather().setRight(hijo);
-        }
-        if (hijo!=null){
-            hijo.setFather(nodo.getFather());
-        }
-    }
-    
-    //Funcion que toma un objeto de tipo nodo y lo elimina del arbol.
-    
-    public void eliminar(Nodo nodo){
-        if (nodo.getLeft() == null){
-            transplantar(nodo,nodo.getRight());
-        }else if(nodo.getRight()== null){
-            transplantar(nodo, nodo.getLeft());
-        }else{
-            Nodo minimo = minimo(nodo.getRight());
-            if(nodo != minimo.getFather()){
-                transplantar(minimo,minimo.getRight());
-                minimo.setRight(nodo.getRight());
-                nodo.getRight().setFather(minimo);
-            }
-            transplantar(nodo,minimo);
-            minimo.setLeft(nodo.getLeft());
-            nodo.getLeft().setFather(minimo);
-        }
-    }
-    
-    //Funcion que comienza el proceso de eliminar un nodo del arbol, toma como parametro
-    //el id del nodo a eliminar.
-    
-    public void eliminar_elemento(int id){
-        Nodo raiz = this.root;
-        Nodo elemento = buscar(id);
-        if (elemento != null){
-            eliminar(elemento);
-        }
-        else{
-            System.out.println("Ese elemento no se encuentra en el arbol.");
-        }
-    }
-    
-    //Funcion recursuva que retorna un entero correspondiente a la altura del nodo introducido
-    //dentro del arbol.
-    
-    public int altura(Nodo raiz, int contador){
-        if(raiz!=null){
-            int altura_izquierda = altura(raiz.getLeft(),contador+1);
-            int altura_derecha = altura(raiz.getRight(),contador+1);
-            if (altura_izquierda>=altura_derecha){
-                return altura_izquierda;
-            }else{
-                return altura_derecha;
-            }
-        }else{
-            return contador;
-        }
-    }
-    
-    //Funcion que toma como parametros nos nodos y retorna un objeto de tipo Nodo correspondiente
-    //al nodo que tenga mayor altura dentro del arbol.
-    
-    public Nodo comparar(Nodo nodo1, Nodo nodo2){
-        int aux = 0;
-        if((esta(nodo1)) && (esta(nodo2))){
-            int altura1 = altura(this.root,aux);
-            int altura2 = altura(this.root,aux);
-        
-            if (altura1==altura2){
-                return nodo1;
-            }else if (altura1 > altura2){
-                return nodo1;
-            }else{
-                return nodo2;
-            }
-        }
-        return null;
-    }*/
 }
