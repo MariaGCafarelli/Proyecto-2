@@ -2,6 +2,10 @@
         
 package adivinador;
 
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.io.PrintWriter;
 import javax.swing.JOptionPane;
 /**
  *
@@ -14,10 +18,15 @@ public class ArbolBinario {
     
     private Nodo root;
     
+    //Objeto de tipo Nodo que guarda un elemento buscado en el arbol
+    
+    private Nodo buscado;
+    
     //Constructor del arbol
     
     public ArbolBinario(){
-        this.root = new Nodo("Perro");
+        this.root = new Nodo("perro");
+        this.buscado = null;
     }
     
     //Funcion que establece la raiz del arbol como un objeto de tipo nodo
@@ -27,10 +36,18 @@ public class ArbolBinario {
         this.root = nuevo;
     }
     
+    public void setBuscado(){
+        this.buscado = null;
+    }
+    
     //Funcion que devuelve un objeto de tipo nodo que corresponde a la raiz del arbol
     
     public Nodo getRoot(){
         return this.root;
+    }
+    
+    public Nodo getBuscado(){
+        return this.buscado;
     }
     
     //Funcion 
@@ -57,7 +74,7 @@ public class ArbolBinario {
         String temp = auxiliar.getId();
         String pregunta = JOptionPane.showInputDialog("¿Es un " + auxiliar.getId()+ "?" ); 
         if(entrada(pregunta)==true){
-            JOptionPane.showMessageDialog(null, "¡Bien!, hemos adivinado que "+ auxiliar.getId()+ " es su animal.");
+            JOptionPane.showMessageDialog(null, "¡Bien!, hemos adivinado que "+ auxiliar.getId().toLowerCase()+ " es su animal.");
             return true;
         }else if(entrada(pregunta)==false){
             //JOptionPane.showMessageDialog(null, "¡oh no!, no hemos adivinado cuál era su animal.");
@@ -73,7 +90,7 @@ public class ArbolBinario {
             auxiliar.setRight(animal);
             animal.setFather(auxiliar);
             //System.out.println(auxiliar.hoja() + " padre " + auxiliar.getLeft().hoja() + " hijo iz " + auxiliar.getRight().hoja() + " hijo der");
-            return false;
+            //return false;
         } 
         return false;
     }
@@ -91,6 +108,95 @@ public class ArbolBinario {
             return false;
         }
     }
+    
+    public void buscar(Nodo raiz, String id){
+        if(raiz.getId().equals(id)){
+            this.buscado = raiz;
+        }
+        if(!(raiz.hoja()) && !(raiz.getId().equals(id))){
+           buscar(raiz.getLeft(),id);
+           buscar(raiz.getRight(),id);
+        }
+    }
+    
+    public void guardarArbol()throws IOException{
+        try{
+            String archivo = "Conocimientos.txt";
+            PrintWriter out = new PrintWriter(archivo);
+            out.print(this.buscado.getId());
+            out.println();
+            
+        }catch(Exception e){
+            System.out.println("No se pudo cargar el adivinador en un .txt con exito.");
+            e.printStackTrace();
+            
+        }
+    }
+    
+    /*public boolean retornarGrafo(String Archivo)throws IOException{
+        
+        try{
+            String fileName = Archivo + ".txt";
+            PrintWriter out = new PrintWriter(fileName);
+            out.print(Integer.toString(this.numeroVertice));
+            out.println();
+            out.print(Integer.toString(this.numeroLado));
+            for(Vertice v: this.listaVertices){
+                out.println();
+                out.print(v.getId());    
+            }           
+            for(Arista a: this.listaArista){
+                out.println();
+                out.print( a.getId() + " " + a.getExtremo1() + " " + a.getExtremo2() + " " + a.getPeso() + " " + a.getFeromonas());    
+            }
+            
+            out.close();
+            return true;       
+        }
+        catch (Exception e){
+            System.out.println("No se pudo cargar el grafo en un .txt con exito.");
+            e.printStackTrace();
+            return false;
+        } 
+    }*/
+    
+    public Boolean cargarArbol(String Archivo)throws IOException{
+        try{
+            BufferedReader in = new BufferedReader(new FileReader(Archivo));
+            String s = in.readLine();
+            this.root = new Nodo(s);
+            
+            Nodo padre, izquierdo, derecho, auxiliar;
+            
+            while((s=in.readLine()) != null){
+                String s1 = s.replaceAll(", ", ",");
+                String[] separar = s1.split(",");
+                auxiliar = new Nodo(separar[0]);
+                buscar(this.root, auxiliar.getId());
+                padre = this.buscado;
+                izquierdo = new Nodo(separar[1]);
+                derecho = new Nodo(separar[2]);
+                
+                padre.setHoja(false);
+                padre.setLeft(izquierdo);
+                padre.setRight(derecho);
+                
+                izquierdo.setFather(padre);
+                izquierdo.setFather(padre);
+                
+            }
+            System.out.println("Se cargó el árbol con éxito.");
+            in.close(); 
+            return true;
+            
+        }catch (Exception e){
+            System.out.println("No se pudo cargar el árbol con exito.");
+            e.printStackTrace();
+            return false;
+        }
+    }    
+    
+    
     
     //Funcion que determina si un nodo se encuentra en el arbol y retorna un auxiliar 
     //booleano segun el caso.

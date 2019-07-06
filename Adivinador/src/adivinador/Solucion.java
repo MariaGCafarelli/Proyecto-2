@@ -5,6 +5,8 @@
  */
 package adivinador;
 
+import java.io.IOException;
+
 /**
  *
  * @author Mari
@@ -13,12 +15,15 @@ public class Solucion {
         /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) {
+    public static void main(String[] args) throws IOException {
         // TODO code application logic here
         ArbolBinario arbol = new ArbolBinario();
 
-        boolean es = arbol.insertar(arbol.getRoot());
-        boolean es1 =  arbol.insertar(arbol.getRoot());
+        //boolean es = arbol.insertar(arbol.getRoot());
+        //boolean es1 =  arbol.insertar(arbol.getRoot());
+        //arbol.buscar(arbol.getRoot(),"gato");
+        //System.out.println(arbol.getBuscado().getId() + " BUSCADO");
+        arbol.cargarArbol("ejemplo.txt");
         arbol.preOrder(arbol.getRoot());
     }
 }
