@@ -78,13 +78,13 @@ public class ArbolBinario {
         return false;
     }
     
-    public Boolean entrada(String respuesta){
+    public Boolean entrada(String respuesta2){
         //System.out.println(respuesta);
-        /*respuesta = respuesta.replaceAll(" ", "");
-        respuesta = respuesta.replaceAll(".", "");
-        respuesta = respuesta.replaceAll(",", "");
-        respuesta = respuesta.replaceAll("%", "");
-        respuesta = respuesta.replaceAll("$", "");*/
+        String respuesta = respuesta2.replaceAll(" ", "");
+        //respuesta = respuesta.replaceAll(".", "");
+        //respuesta = respuesta.replaceAll(",", "");
+        //respuesta = respuesta.replaceAll("%", "");
+        //respuesta = respuesta.replaceAll("$", "");*/
         if (respuesta.equals("si") || respuesta.equals("SI") || respuesta.equals("s") || respuesta.equals("S")){
             return true;
         }else{
