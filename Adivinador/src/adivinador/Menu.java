@@ -5,17 +5,41 @@
  */
 package adivinador;
 
+import java.awt.Color;
+import java.awt.Dimension;
+import java.awt.Font;
+import java.awt.Image;
+import java.awt.Toolkit;
+import javax.swing.ImageIcon;
+
 /**
  *
  * @author Mari
  */
 public class Menu extends javax.swing.JFrame {
-
+    public ArbolBinario arbol;
     /**
      * Creates new form Menu
      */
-    public Menu() {
+    public Menu(ArbolBinario arbol) {
         initComponents();
+        this.arbol = arbol;
+        this.getContentPane().setBackground(Color.white);
+        this.setTitle("Adivinador");
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
+        Toolkit mipantalla = Toolkit.getDefaultToolkit(); 
+        Dimension tamano=mipantalla.getScreenSize();
+        int alturaP = tamano.height;
+        int anchoP = tamano.width;
+        this.setLocation(anchoP/3,alturaP/4);
+        this.setResizable(false);
+        Font fuente = new Font("Calibri",2,19);
+        //this.jLabel1.setFont(fuente);
+        //this.jButton1.setBackground(Color.white);
+        //this.jButton1.setFont(fuente);
+        ImageIcon ImageIcon = new ImageIcon("descarga.png");
+        Image image = ImageIcon.getImage();
+        this.setIconImage(image);
     }
 
     /**
@@ -43,40 +67,6 @@ public class Menu extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Menu.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new Menu().setVisible(true);
-            }
-        });
-    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     // End of variables declaration//GEN-END:variables

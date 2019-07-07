@@ -18,13 +18,17 @@ public class Solucion {
     public static void main(String[] args) throws IOException {
         // TODO code application logic here
         ArbolBinario arbol = new ArbolBinario();
-
+        Comienzo window = new Comienzo(arbol);        
+        window.setVisible(true);
         //boolean es = arbol.insertar(arbol.getRoot());
         //boolean es1 =  arbol.insertar(arbol.getRoot());
         //arbol.buscar(arbol.getRoot(),"gato");
         //System.out.println(arbol.getBuscado().getId() + " BUSCADO");
-        arbol.cargarArbol("ejemplo.txt");
-        arbol.guardarArbol();
+        //arbol.cargarArbol("Conocimientos.txt");
+        //boolean es = arbol.insertar(arbol.getRoot());
+        //arbol.buscar(arbol.getRoot(),"se arrastra");
+        //System.out.println(arbol.getBuscado().getLeft().getId() + " BUSCADO");
+        //arbol.guardarArbol();
         //arbol.preOrder(arbol.getRoot());
     }
 }

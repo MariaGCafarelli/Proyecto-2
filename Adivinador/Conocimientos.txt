@@ -1,3 +1,9 @@
-ladrar
-ladrar, perro, maulla
-maulla, gato, gallo
+ladra
+ladra, es salvaje, maulla
+es salvaje, lobo, es bebe
+es bebe, cachorro, perro
+maulla, es grande, se arrastra
+es grande, leon, gato
+se arrastra, tiene patas, gallo
+tiene patas, es marron, serpiente
+es marron, lagartija, salamandra

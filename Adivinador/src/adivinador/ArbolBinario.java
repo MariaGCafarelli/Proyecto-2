@@ -63,7 +63,7 @@ public class ArbolBinario {
         JOptionPane.showMessageDialog(null, "¡Vamos a adivinar!");
         while(!(auxiliar.hoja())){
             
-            String entrada = JOptionPane.showInputDialog("¿" + raiz.getId()+ "?" );
+            String entrada = JOptionPane.showInputDialog("¿" + auxiliar.getId()+ "?" );
             System.out.println(auxiliar.getLeft().getId());
             if(entrada(entrada)){
                 auxiliar = auxiliar.getLeft();
@@ -90,10 +90,10 @@ public class ArbolBinario {
             Nodo error = new Nodo(temp);
             auxiliar.setId(comparacion);
             auxiliar.setHoja(false);
-            auxiliar.setLeft(error);
+            auxiliar.setLeft(animal);
             error.setFather(auxiliar);
             error.setHoja(true);
-            auxiliar.setRight(animal);
+            auxiliar.setRight(error);
             animal.setFather(auxiliar);
             //System.out.println(auxiliar.hoja() + " padre " + auxiliar.getLeft().hoja() + " hijo iz " + auxiliar.getRight().hoja() + " hijo der");
             //return false;
@@ -137,7 +137,7 @@ public class ArbolBinario {
             }
             out.close();  
         }catch(Exception e){
-            System.out.println("No se pudo cargar el adivinador en un .txt con exito.");
+            System.out.println("No se pudo cargar el adivinador en un .txt con éxito.");
             e.printStackTrace();
             
         }
@@ -173,7 +173,7 @@ public class ArbolBinario {
             return true;
             
         }catch (Exception e){
-            System.out.println("No se pudo cargar el árbol con exito.");
+            System.out.println("No se pudo cargar el árbol con éxito.");
             e.printStackTrace();
             return false;
         }
@@ -207,7 +207,7 @@ public class ArbolBinario {
             if(!raiz.hoja()){
                 String agregar = raiz.getId() + ", " + raiz.getLeft().getId() + ", " + raiz.getRight().getId();
                 this.preOrder.add(agregar);
-                System.out.println(agregar);
+                //System.out.println(raiz.getId());
             }
             preOrder(raiz.getLeft());
             preOrder(raiz.getRight());
