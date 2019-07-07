@@ -10,21 +10,23 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
+import java.io.IOException;
+import java.lang.System.*;
+import java.util.logging.Level;
 import javax.swing.ImageIcon;
 
 /**
  *
- * @author Mari
+ * @author Maria Gabriela Cafarelli
  */
+
 public class Menu extends javax.swing.JFrame {
     public ArbolBinario arbol;
-    /**
-     * Creates new form Menu
-     */
+
     public Menu(ArbolBinario arbol) {
         initComponents();
         this.arbol = arbol;
-        this.getContentPane().setBackground(Color.white);
+        this.getContentPane().setBackground(Color.BLACK);
         this.setTitle("Adivinador");
         setDefaultCloseOperation(EXIT_ON_CLOSE);
         Toolkit mipantalla = Toolkit.getDefaultToolkit(); 
@@ -33,10 +35,12 @@ public class Menu extends javax.swing.JFrame {
         int anchoP = tamano.width;
         this.setLocation(anchoP/3,alturaP/4);
         this.setResizable(false);
-        Font fuente = new Font("Calibri",2,19);
+        Font fuente = new Font("Courier New",1,14);
         //this.jLabel1.setFont(fuente);
-        //this.jButton1.setBackground(Color.white);
-        //this.jButton1.setFont(fuente);
+        this.jButton1.setBackground(Color.white);
+        this.jButton1.setFont(fuente);
+        this.jButton2.setBackground(Color.white);
+        this.jButton2.setFont(fuente);
         ImageIcon ImageIcon = new ImageIcon("descarga.png");
         Image image = ImageIcon.getImage();
         this.setIconImage(image);
@@ -51,23 +55,87 @@ public class Menu extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jButton1 = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+
+        jButton1.setText("¡comenzar de nuevo!");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("¡comenzar de cero!");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 400, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(46, 46, 46)
+                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 67, Short.MAX_VALUE)
+                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(47, 47, 47))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 300, Short.MAX_VALUE)
+            .addGroup(layout.createSequentialGroup()
+                .addGap(41, 41, 41)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 45, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(44, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        try {
+            // TODO add your handling code here:
+            this.setVisible(false);
+            this.arbol.cargarArbol("Conocimientos.txt");
+            boolean es = this.arbol.insertar(this.arbol.getRoot());
+            this.arbol.guardarArbol();
+            new Menu(this.arbol).setVisible(true);
+            
+        } catch (Exception e){
+            System.out.println("No se pudo cargar el árbol con éxito.");
+            e.printStackTrace();
+            
+        }
+        
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        // TODO add your handling code here:
+        
+        try {
+            this.arbol.borrarConocimientos();
+            this.setVisible(false);
+            this.arbol.setRoot("perro");
+            boolean es = arbol.insertar(this.arbol.getRoot());
+            this.arbol.guardarArbol();
+            new Menu(this.arbol).setVisible(true);
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(Menu.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
+    }//GEN-LAST:event_jButton2ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton jButton1;
+    private javax.swing.JButton jButton2;
     // End of variables declaration//GEN-END:variables
 }

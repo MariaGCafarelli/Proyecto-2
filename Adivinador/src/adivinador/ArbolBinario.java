@@ -60,10 +60,10 @@ public class ArbolBinario {
     
     public Nodo encuentraFin(Nodo raiz){
         Nodo auxiliar = raiz;
-        JOptionPane.showMessageDialog(null, "¡Vamos a adivinar!");
+        //JOptionPane.showMessageDialog(null, "¡Vamos a adivinar!");
         while(!(auxiliar.hoja())){
             
-            String entrada = JOptionPane.showInputDialog("¿" + auxiliar.getId()+ "?" );
+            String entrada = JOptionPane.showInputDialog("¿Tu animal " + auxiliar.getId()+ "?" );
             System.out.println(auxiliar.getLeft().getId());
             if(entrada(entrada)){
                 auxiliar = auxiliar.getLeft();
@@ -214,4 +214,16 @@ public class ArbolBinario {
         }
     }
     
+    public void borrarConocimientos(){
+        try{
+            String archivo = "Conocimientos.txt";
+            PrintWriter out = new PrintWriter(archivo);
+            out.print("");
+            out.close();  
+        }catch(Exception e){
+            System.out.println("No se pudo borrar los conocimientos con exito.");
+            e.printStackTrace();
+            
+        }
+    }
 }

@@ -87,7 +87,7 @@ public class Comienzo extends javax.swing.JFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addGap(28, 28, 28)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(38, Short.MAX_VALUE))
         );
 
         pack();
@@ -102,8 +102,10 @@ public class Comienzo extends javax.swing.JFrame {
             arbol.guardarArbol();
             new Menu(this.arbol).setVisible(true);
             
-        } catch (IOException ex) {
-            Logger.getLogger(Comienzo.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception e){
+            System.out.println("No se pudo cargar el árbol con éxito.");
+            e.printStackTrace();
+            
         }
         
         this.dispose();
