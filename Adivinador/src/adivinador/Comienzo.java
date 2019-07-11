@@ -1,8 +1,4 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
+
 package adivinador;
 
 import java.awt.Color;
@@ -10,20 +6,17 @@ import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.Image;
 import java.awt.Toolkit;
-import java.io.IOException;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.ImageIcon;
 
 /**
  *
- * @author Mari
+ * @author Maria Gabriela Cafarelli
  */
+
 public class Comienzo extends javax.swing.JFrame {
+    
     public ArbolBinario arbol;
-    /**
-     * Creates new form Ventana
-     */
+
     public Comienzo(ArbolBinario arbol) {
         initComponents();
         this.arbol = arbol;
@@ -40,7 +33,7 @@ public class Comienzo extends javax.swing.JFrame {
         //this.jLabel1.setFont(fuente);
         this.jButton1.setBackground(Color.WHITE);
         this.jButton1.setFont(fuente);
-        ImageIcon ImageIcon = new ImageIcon("descarga.png");
+        ImageIcon ImageIcon = new ImageIcon("descarga1.png");
         Image image = ImageIcon.getImage();
         this.setIconImage(image);
     }
@@ -73,9 +66,9 @@ public class Comienzo extends javax.swing.JFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(35, 35, 35)
                 .addComponent(jLabel1)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addContainerGap(41, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -85,9 +78,9 @@ public class Comienzo extends javax.swing.JFrame {
                         .addGap(45, 45, 45)
                         .addComponent(jLabel1))
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(28, 28, 28)
+                        .addGap(32, 32, 32)
                         .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 64, javax.swing.GroupLayout.PREFERRED_SIZE)))
-                .addContainerGap(38, Short.MAX_VALUE))
+                .addContainerGap(34, Short.MAX_VALUE))
         );
 
         pack();
@@ -97,9 +90,11 @@ public class Comienzo extends javax.swing.JFrame {
         try {
             // TODO add your handling code here:
             this.setVisible(false);
-            arbol.cargarArbol("Conocimientos.txt");
+            arbol.cargarConocimientos("Conocimientos.txt");
+            //this.arbol.setRoot("perro");
             boolean es = arbol.insertar(arbol.getRoot());
-            arbol.guardarArbol();
+            
+            arbol.guardarConocimientos();
             new Menu(this.arbol).setVisible(true);
             
         } catch (Exception e){

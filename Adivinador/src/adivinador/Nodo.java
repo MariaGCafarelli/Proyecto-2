@@ -6,6 +6,7 @@ package adivinador;
  * @author Maria Gabriela Cafarelli
  */
 
+
 public class Nodo{
     
     private String id;
@@ -21,13 +22,6 @@ public class Nodo{
         this.father = null;
         this.hoja = true;
     }   
-  
-    public Nodo(String id, Nodo left, Nodo right){
-        this.id = id;
-        this.left = left;
-        this.right = right;
-        this.father = null;
-    }
   
     public boolean hoja(){
         return this.hoja;
